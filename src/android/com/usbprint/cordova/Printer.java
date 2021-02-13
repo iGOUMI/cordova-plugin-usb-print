@@ -188,7 +188,7 @@ public class Printer {
                 }
             }
             if (this.conn.claimInterface(this.usbInt, true)) {
-                this.conn.bulkTransfer(this.ep, bits, bits.length, 0);
+                this.conn.bulkTransfer(this.ep, bits, bits.length, 5000);
             }
         }
     }
