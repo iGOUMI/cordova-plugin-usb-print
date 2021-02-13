@@ -171,7 +171,7 @@ public class Printer {
         }
         if ((this.ep != null) && (this.usbInt != null) && (this.conn != null)) {
             while(true){
-                if(this.conn.bulkTransfer(this.ep, bits, bits.length, 500) > 0){
+                if(this.conn.bulkTransfer(this.ep, bits, bits.length, 500) <= 0){
                     break;
                 }
             }
@@ -193,7 +193,7 @@ public class Printer {
             }
             if (this.conn.claimInterface(this.usbInt, true)) {
                 while(true){
-                    if(this.conn.bulkTransfer(this.ep, bits, bits.length, 500) > 0){
+                    if(this.conn.bulkTransfer(this.ep, bits, bits.length, 500) <= 0){
                         break;
                     }
                 }
