@@ -170,7 +170,11 @@ public class Printer {
             return;
         }
         if ((this.ep != null) && (this.usbInt != null) && (this.conn != null)) {
-            this.conn.bulkTransfer(this.ep, bits, bits.length, 5000);
+            while(true){
+                if(this.conn.bulkTransfer(this.ep, bits, bits.length, 500) > 0){
+                    break;
+                }
+            }
         } else {
             if (this.conn == null) {
                 this.conn = this.usbManager.openDevice(this.device);
@@ -188,7 +192,11 @@ public class Printer {
                 }
             }
             if (this.conn.claimInterface(this.usbInt, true)) {
-                this.conn.bulkTransfer(this.ep, bits, bits.length, 5000);
+                while(true){
+                    if(this.conn.bulkTransfer(this.ep, bits, bits.length, 500) > 0){
+                        break;
+                    }
+                }
             }
         }
     }
