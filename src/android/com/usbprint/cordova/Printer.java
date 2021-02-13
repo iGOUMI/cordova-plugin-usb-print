@@ -7,6 +7,7 @@ import android.hardware.usb.UsbManager;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbRequest;
+import java.nio.ByteBuffer;
 import android.os.Message;
 import android.util.Log;
 import java.io.UnsupportedEncodingException;
