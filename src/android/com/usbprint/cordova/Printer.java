@@ -170,7 +170,7 @@ public class Printer {
             return;
         }
         if ((this.ep != null) && (this.usbInt != null) && (this.conn != null)) {
-            this.conn.bulkTransfer(this.ep, bits, bits.length, 0);
+            this.conn.bulkTransfer(this.ep, bits, bits.length, 5000);
         } else {
             if (this.conn == null) {
                 this.conn = this.usbManager.openDevice(this.device);
