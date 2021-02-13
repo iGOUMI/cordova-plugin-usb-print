@@ -170,10 +170,26 @@ public class Printer {
             return;
         }
         if ((this.ep != null) && (this.usbInt != null) && (this.conn != null)) {
-            while(true){
-                if(this.conn.bulkTransfer(this.ep, bits, bits.length, 500) <= 0){
-                    break;
+            try {
+                ByteBuffer outputBuffer = ByteBuffer.allocate(bits.length);
+                UsbRequest usbRequest = new UsbRequest();
+                usbRequest.initialize(this.conn, this.ep);
+                usbRequest.queue(outputBuffer, bits.length);
+                if (this.conn.requestWait() == usbRequest) {
+                    Log.i(TAG, outputBuffer.getChar(0) + "");
+                    Message msg = new Message();
+                    msg.obj = outputBuffer.array();
+                    outputBuffer.clear();
+                } else {
+                    Log.i(TAG, "We have no messages received.");
                 }
+                int transfered = this.conn.bulkTransfer(this.ep,
+                        bits,
+                        bits.length, 5000);
+                Log.i(TAG, "Message sent with transfer: " +
+                        transfered);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
             }
         } else {
             if (this.conn == null) {
@@ -192,10 +208,26 @@ public class Printer {
                 }
             }
             if (this.conn.claimInterface(this.usbInt, true)) {
-                while(true){
-                    if(this.conn.bulkTransfer(this.ep, bits, bits.length, 500) <= 0){
-                        break;
+                try {
+                    ByteBuffer outputBuffer = ByteBuffer.allocate(bits.length);
+                    UsbRequest usbRequest = new UsbRequest();
+                    usbRequest.initialize(this.conn, this.ep);
+                    usbRequest.queue(outputBuffer, bits.length);
+                    if (this.conn.requestWait() == usbRequest) {
+                        Log.i(TAG, outputBuffer.getChar(0) + "");
+                        Message msg = new Message();
+                        msg.obj = outputBuffer.array();
+                        outputBuffer.clear();
+                    } else {
+                        Log.i(TAG, "We have no messages received.");
                     }
+                    int transfered = this.conn.bulkTransfer(this.ep,
+                            bits,
+                            bits.length, 5000);
+                    Log.i(TAG, "Message sent with transfer: " +
+                            transfered);
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
             }
         }
