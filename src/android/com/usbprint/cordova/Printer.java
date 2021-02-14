@@ -181,6 +181,7 @@ public class Printer {
                     Message msg = new Message();
                     msg.obj = outputBuffer.array();
                     outputBuffer.clear();
+                    return;
                 } else {
                     Log.i(TAG, "We have no messages received.");
                 }
@@ -214,6 +215,7 @@ public class Printer {
                         Message msg = new Message();
                         msg.obj = outputBuffer.array();
                         outputBuffer.clear();
+                        return;
                     } else {
                         Log.i(TAG, "We have no messages received.");
                     }
