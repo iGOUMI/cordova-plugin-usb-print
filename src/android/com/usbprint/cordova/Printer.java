@@ -172,7 +172,8 @@ public class Printer {
         }
         if ((this.ep != null) && (this.usbInt != null) && (this.conn != null)) {
             try {
-                int byteArrayLength = byteArray.length, byteArrayEndIndex;
+                int byteArrayLength = byteArray.length;
+                int byteArrayEndIndex = 0;
                 for (int i=0;i<byteArrayLength;i=i+15000) {
                     byteArrayEndIndex = i + 15000;
                     if (byteArrayEndIndex > byteArrayLength) {
@@ -182,7 +183,7 @@ public class Printer {
                     ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
                     UsbRequest usbRequest = new UsbRequest();
                     usbRequest.initialize(this.conn, this.ep);
-                    usbRequest.queue(outputBuffer, byteArray.length);
+                    usbRequest.queue(outputBuffer, sendByteArray.length);
                     if (this.conn.requestWait() == usbRequest) {
                         outputBuffer.clear();
                         Log.i(TAG, "Sent.");
@@ -215,7 +216,8 @@ public class Printer {
             }
             if (this.conn.claimInterface(this.usbInt, true)) {
                 try {
-                    int byteArrayLength = byteArray.length, byteArrayEndIndex;
+                    int byteArrayLength = byteArray.length;
+                    int byteArrayEndIndex = 0;
                     for (int i=0;i<byteArrayLength;i=i+15000) {
                         byteArrayEndIndex = i + 15000;
                         if (byteArrayEndIndex > byteArrayLength) {
@@ -225,7 +227,7 @@ public class Printer {
                         ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
                         UsbRequest usbRequest = new UsbRequest();
                         usbRequest.initialize(this.conn, this.ep);
-                        usbRequest.queue(outputBuffer, byteArray.length);
+                        usbRequest.queue(outputBuffer, sendByteArray.length);
                         if (this.conn.requestWait() == usbRequest) {
                             outputBuffer.clear();
                             Log.i(TAG, "Sent.");
