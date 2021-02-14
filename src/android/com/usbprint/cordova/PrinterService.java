@@ -189,8 +189,8 @@ public class PrinterService extends CordovaPlugin {
     }
 
     private JSONObject injectDeviceInfo(UsbDevice usbDevice) throws JSONException {
+        JSONObject printerObj = new JSONObject();
         try {
-            JSONObject printerObj = new JSONObject();
             printerObj.put("productName", usbDevice.getProductName());
             printerObj.put("manufacturerName", usbDevice.getManufacturerName());
             printerObj.put("deviceName", usbDevice.getDeviceName());
@@ -203,10 +203,10 @@ public class PrinterService extends CordovaPlugin {
             return printerObj;
         } catch (Exception exp) {
             Log.e(TAG, "Exception in parsing to JSON object" + exp.getMessage());
-            return;
+            return printerObj;
         } catch (Error err) {
             Log.e(TAG, "Error in parsing to JSON object" + err.getMessage());
-            return;
+            return printerObj;
         }
     }
 
