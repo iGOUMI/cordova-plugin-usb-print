@@ -198,8 +198,9 @@ public class PrinterService extends CordovaPlugin {
             printerObj.put("vendorId", usbDevice.getVendorId());
             printerObj.put("serialNumber", usbDevice.getSerialNumber());
             printerObj.put("deviceProtocol", usbDevice.getDeviceProtocol());
-            printerObj.put("deviceClass", usbDevice.getDeviceClass() + "_" + translateDeviceClass(usbDevice.getDeviceClass()));
+            printerObj.put("deviceClass", usbDevice.getDeviceClass());
             printerObj.put("deviceSubClass", usbDevice.getDeviceSubclass());
+            printerObj.put("translateDeviceClass", translateDeviceClass(usbDevice.getDeviceClass()));
             return printerObj;
         } catch (Exception exp) {
             Log.e(TAG, "Exception in parsing to JSON object" + exp.getMessage());
