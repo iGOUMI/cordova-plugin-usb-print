@@ -7,8 +7,9 @@ import android.hardware.usb.UsbManager;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbRequest;
-import java.nio.ByteBuffer;
 import android.util.Log;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.io.UnsupportedEncodingException;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
@@ -175,7 +176,7 @@ public class Printer {
                 for (int i=0;i<byteArrayLength;i=i+15000) {
                     int endIndex = i + 15000;
                     if (endIndex > byteArrayLength) {
-                        int endIndex = byteArrayLength;
+                        endIndex = byteArrayLength;
                     }
                     byte[] sendByteArray = Arrays.copyOfRange(byteArray, i, byteArrayLength);
                     ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
@@ -216,7 +217,7 @@ public class Printer {
                     for (int i=0;i<byteArrayLength;i=i+15000) {
                         int endIndex = i + 15000;
                         if (endIndex > byteArrayLength) {
-                            int endIndex = byteArrayLength;
+                            endIndex = byteArrayLength;
                         }
                         byte[] sendByteArray = Arrays.copyOfRange(byteArray, i, byteArrayLength);
                         ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
