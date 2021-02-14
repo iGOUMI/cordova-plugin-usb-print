@@ -174,11 +174,11 @@ public class Printer {
             try {
                 int byteArrayLength = byteArray.length;
                 for (int i=0;i<byteArrayLength;i=i+15000) {
-                    int endIndex = i + 15000;
-                    if (endIndex > byteArrayLength) {
-                        endIndex = byteArrayLength;
+                    int byteArrayEndIndex = i + 15000;
+                    if (byteArrayEndIndex > byteArrayLength) {
+                        byteArrayEndIndex = byteArrayLength;
                     }
-                    byte[] sendByteArray = Arrays.copyOfRange(byteArray, i, byteArrayLength);
+                    byte[] sendByteArray = Arrays.copyOfRange(byteArray, i, byteArrayEndIndex);
                     ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
                     UsbRequest usbRequest = new UsbRequest();
                     usbRequest.initialize(this.conn, this.ep);
@@ -186,7 +186,9 @@ public class Printer {
                     if (this.conn.requestWait() == usbRequest) {
                         outputBuffer.clear();
                         Log.i(TAG, "Sent.");
-                        return;
+                        if (byteArrayEndIndex >= byteArrayLength) {
+                            return;
+                        }
                     } else {
                         Log.i(TAG, "Not sent.");
                         return;
@@ -215,11 +217,11 @@ public class Printer {
                 try {
                     int byteArrayLength = byteArray.length;
                     for (int i=0;i<byteArrayLength;i=i+15000) {
-                        int endIndex = i + 15000;
-                        if (endIndex > byteArrayLength) {
-                            endIndex = byteArrayLength;
+                        int byteArrayEndIndex = i + 15000;
+                        if (byteArrayEndIndex > byteArrayLength) {
+                            byteArrayEndIndex = byteArrayLength;
                         }
-                        byte[] sendByteArray = Arrays.copyOfRange(byteArray, i, byteArrayLength);
+                        byte[] sendByteArray = Arrays.copyOfRange(byteArray, i, byteArrayEndIndex);
                         ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
                         UsbRequest usbRequest = new UsbRequest();
                         usbRequest.initialize(this.conn, this.ep);
@@ -227,7 +229,7 @@ public class Printer {
                         if (this.conn.requestWait() == usbRequest) {
                             outputBuffer.clear();
                             Log.i(TAG, "Sent.");
-                            if (endIndex >= byteArrayLength) {
+                            if (byteArrayEndIndex >= byteArrayLength) {
                                 return;
                             }
                         } else {
