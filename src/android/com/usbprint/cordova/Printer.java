@@ -171,11 +171,11 @@ public class Printer {
         }
         if ((this.ep != null) && (this.usbInt != null) && (this.conn != null)) {
             try {
-                byteArrayLength = byteArray.length;
+                int byteArrayLength = byteArray.length;
                 for (int i=0;i<byteArrayLength;i=i+15000) {
-                    endIndex = i + 15000;
+                    int endIndex = i + 15000;
                     if (endIndex > byteArrayLength) {
-                        endIndex = byteArrayLength;
+                        int endIndex = byteArrayLength;
                     }
                     byte[] sendByteArray = Arrays.copyOfRange(byteArray, i, byteArrayLength);
                     ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
@@ -212,11 +212,11 @@ public class Printer {
             }
             if (this.conn.claimInterface(this.usbInt, true)) {
                 try {
-                    byteArrayLength = byteArray.length;
+                    int byteArrayLength = byteArray.length;
                     for (int i=0;i<byteArrayLength;i=i+15000) {
-                        endIndex = i + 15000;
+                        int endIndex = i + 15000;
                         if (endIndex > byteArrayLength) {
-                            endIndex = byteArrayLength;
+                            int endIndex = byteArrayLength;
                         }
                         byte[] sendByteArray = Arrays.copyOfRange(byteArray, i, byteArrayLength);
                         ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
