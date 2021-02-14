@@ -227,7 +227,9 @@ public class Printer {
                         if (this.conn.requestWait() == usbRequest) {
                             outputBuffer.clear();
                             Log.i(TAG, "Sent.");
-                            return;
+                            if (endIndex >= byteArrayLength) {
+                                return;
+                            }
                         } else {
                             Log.i(TAG, "Not sent.");
                             return;
