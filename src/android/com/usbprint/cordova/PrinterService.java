@@ -190,6 +190,7 @@ public class PrinterService extends CordovaPlugin {
 
     private JSONObject injectDeviceInfo(UsbDevice usbDevice) throws JSONException {
         try {
+            JSONObject printerObj = new JSONObject();
             printerObj.put("productName", usbDevice.getProductName());
             printerObj.put("manufacturerName", usbDevice.getManufacturerName());
             printerObj.put("deviceName", usbDevice.getDeviceName());
