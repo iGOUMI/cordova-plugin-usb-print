@@ -172,7 +172,7 @@ public class Printer {
         }
         if ((this.ep != null) && (this.usbInt != null) && (this.conn != null)) {
             try {
-                ByteBuffer outputBuffer = ByteBuffer.allocate(bits.length);
+                ByteBuffer outputBuffer = ByteBuffer.wrap(bits);
                 UsbRequest usbRequest = new UsbRequest();
                 usbRequest.initialize(this.conn, this.ep);
                 usbRequest.queue(outputBuffer, bits.length);
@@ -206,7 +206,7 @@ public class Printer {
             }
             if (this.conn.claimInterface(this.usbInt, true)) {
                 try {
-                    ByteBuffer outputBuffer = ByteBuffer.allocate(bits.length);
+                    ByteBuffer outputBuffer = ByteBuffer.wrap(bits);
                     UsbRequest usbRequest = new UsbRequest();
                     usbRequest.initialize(this.conn, this.ep);
                     usbRequest.queue(outputBuffer, bits.length);
