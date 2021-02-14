@@ -183,7 +183,7 @@ public class Printer {
                     ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
                     UsbRequest usbRequest = new UsbRequest();
                     usbRequest.initialize(this.conn, this.ep);
-                    usbRequest.queue(outputBuffer, sendByteArray.length);
+                    usbRequest.queue(outputBuffer);
                     if (this.conn.requestWait() == usbRequest) {
                         outputBuffer.clear();
                         Log.i(TAG, "Sent.");
@@ -227,7 +227,7 @@ public class Printer {
                         ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
                         UsbRequest usbRequest = new UsbRequest();
                         usbRequest.initialize(this.conn, this.ep);
-                        usbRequest.queue(outputBuffer, sendByteArray.length);
+                        usbRequest.queue(outputBuffer);
                         if (this.conn.requestWait() == usbRequest) {
                             outputBuffer.clear();
                             Log.i(TAG, "Sent.");
