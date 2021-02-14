@@ -189,24 +189,21 @@ public class PrinterService extends CordovaPlugin {
     }
 
     private JSONObject injectDeviceInfo(UsbDevice usbDevice) throws JSONException {
-        JSONObject printerObj = new JSONObject()
-                .put("printername", usbDevice.getVendorId() + "_" + usbDevice.getDeviceId())
-                .put("deviceId", usbDevice.getDeviceId()).put("vendorId", usbDevice.getVendorId());
-        // try {
-        // printerObj.put("productName", usbDevice.getProductName());
-        // printerObj.put("manufacturerName", usbDevice.getManufacturerName());
-        // printerObj.put("deviceName", usbDevice.getDeviceName());
-        // printerObj.put("serialNumber", usbDevice.getSerialNumber());
-        // printerObj.put("protocol", usbDevice.getDeviceProtocol());
-        // printerObj.put("deviceClass",
-        // usbDevice.getDeviceClass() + "_" +
-        // translateDeviceClass(usbDevice.getDeviceClass()));
-        // printerObj.put("deviceSubClass", usbDevice.getDeviceSubclass());
-        // } catch (Exception exp) {
-        // Log.e(TAG, "Exception in parsing to JSON object" + exp.getMessage());
-        // } catch (Error err) {
-        // Log.e(TAG, "Error in parsing to JSON object" + err.getMessage());
-        // }
+        try {
+            printerObj.put("productName", usbDevice.getProductName());
+            printerObj.put("manufacturerName", usbDevice.getManufacturerName());
+            printerObj.put("deviceName", usbDevice.getDeviceName());
+            printerObj.put("deviceId", usbDevice.getDeviceId());
+            printerObj.put("vendorId", usbDevice.getVendorId());
+            printerObj.put("serialNumber", usbDevice.getSerialNumber());
+            printerObj.put("deviceProtocol", usbDevice.getDeviceProtocol());
+            printerObj.put("deviceClass", usbDevice.getDeviceClass() + "_" + translateDeviceClass(usbDevice.getDeviceClass()));
+            printerObj.put("deviceSubClass", usbDevice.getDeviceSubclass());
+        } catch (Exception exp) {
+            Log.e(TAG, "Exception in parsing to JSON object" + exp.getMessage());
+        } catch (Error err) {
+            Log.e(TAG, "Error in parsing to JSON object" + err.getMessage());
+        }
         return printerObj;
     }
 
