@@ -184,11 +184,6 @@ public class Printer {
                 } else {
                     Log.i(TAG, "We have no messages received.");
                 }
-                int transfered = this.conn.bulkTransfer(this.ep,
-                        bits,
-                        bits.length, 5000);
-                Log.i(TAG, "Message sent with transfer: " +
-                        transfered);
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
             }
@@ -222,11 +217,6 @@ public class Printer {
                     } else {
                         Log.i(TAG, "We have no messages received.");
                     }
-                    int transfered = this.conn.bulkTransfer(this.ep,
-                            bits,
-                            bits.length, 5000);
-                    Log.i(TAG, "Message sent with transfer: " +
-                            transfered);
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
