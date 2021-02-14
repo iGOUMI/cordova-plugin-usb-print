@@ -172,9 +172,9 @@ public class Printer {
         }
         if ((this.ep != null) && (this.usbInt != null) && (this.conn != null)) {
             try {
-                int byteArrayLength = byteArray.length;
+                int byteArrayLength = byteArray.length, byteArrayEndIndex;
                 for (int i=0;i<byteArrayLength;i=i+15000) {
-                    int byteArrayEndIndex = i + 15000;
+                    byteArrayEndIndex = i + 15000;
                     if (byteArrayEndIndex > byteArrayLength) {
                         byteArrayEndIndex = byteArrayLength;
                     }
@@ -215,9 +215,9 @@ public class Printer {
             }
             if (this.conn.claimInterface(this.usbInt, true)) {
                 try {
-                    int byteArrayLength = byteArray.length;
+                    int byteArrayLength = byteArray.length, byteArrayEndIndex;
                     for (int i=0;i<byteArrayLength;i=i+15000) {
-                        int byteArrayEndIndex = i + 15000;
+                        byteArrayEndIndex = i + 15000;
                         if (byteArrayEndIndex > byteArrayLength) {
                             byteArrayEndIndex = byteArrayLength;
                         }
