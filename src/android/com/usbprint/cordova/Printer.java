@@ -8,7 +8,6 @@ import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbRequest;
 import java.nio.ByteBuffer;
-import android.os.Message;
 import android.util.Log;
 import java.io.UnsupportedEncodingException;
 import org.apache.cordova.CallbackContext;
@@ -166,24 +165,31 @@ public class Printer {
         sendByte(new byte[] { 13, 10 });
     }
 
-    public void sendByte(byte[] bits) {
-        if (bits == null) {
+    public void sendByte(byte[] byteArray) {
+        if (byteArray == null) {
             return;
         }
         if ((this.ep != null) && (this.usbInt != null) && (this.conn != null)) {
             try {
-                ByteBuffer outputBuffer = ByteBuffer.wrap(bits);
-                UsbRequest usbRequest = new UsbRequest();
-                usbRequest.initialize(this.conn, this.ep);
-                usbRequest.queue(outputBuffer, bits.length);
-                if (this.conn.requestWait() == usbRequest) {
-                    Log.i(TAG, outputBuffer.getChar(0) + "");
-                    Message msg = new Message();
-                    msg.obj = outputBuffer.array();
-                    outputBuffer.clear();
-                    return;
-                } else {
-                    Log.i(TAG, "We have no messages received.");
+                byteArrayLength = byteArray.length;
+                for (int i=0;i<byteArrayLength;i=i+15000) {
+                    endIndex = i + 15000;
+                    if (endIndex > byteArrayLength) {
+                        endIndex = byteArrayLength;
+                    }
+                    byte[] sendByteArray = Arrays.copyOfRange(byteArray, i, byteArrayLength);
+                    ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
+                    UsbRequest usbRequest = new UsbRequest();
+                    usbRequest.initialize(this.conn, this.ep);
+                    usbRequest.queue(outputBuffer, byteArray.length);
+                    if (this.conn.requestWait() == usbRequest) {
+                        outputBuffer.clear();
+                        Log.i(TAG, "Sent.");
+                        return;
+                    } else {
+                        Log.i(TAG, "Not sent.");
+                        return;
+                    }
                 }
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
@@ -206,18 +212,25 @@ public class Printer {
             }
             if (this.conn.claimInterface(this.usbInt, true)) {
                 try {
-                    ByteBuffer outputBuffer = ByteBuffer.wrap(bits);
-                    UsbRequest usbRequest = new UsbRequest();
-                    usbRequest.initialize(this.conn, this.ep);
-                    usbRequest.queue(outputBuffer, bits.length);
-                    if (this.conn.requestWait() == usbRequest) {
-                        Log.i(TAG, outputBuffer.getChar(0) + "");
-                        Message msg = new Message();
-                        msg.obj = outputBuffer.array();
-                        outputBuffer.clear();
-                        return;
-                    } else {
-                        Log.i(TAG, "We have no messages received.");
+                    byteArrayLength = byteArray.length;
+                    for (int i=0;i<byteArrayLength;i=i+15000) {
+                        endIndex = i + 15000;
+                        if (endIndex > byteArrayLength) {
+                            endIndex = byteArrayLength;
+                        }
+                        byte[] sendByteArray = Arrays.copyOfRange(byteArray, i, byteArrayLength);
+                        ByteBuffer outputBuffer = ByteBuffer.wrap(sendByteArray);
+                        UsbRequest usbRequest = new UsbRequest();
+                        usbRequest.initialize(this.conn, this.ep);
+                        usbRequest.queue(outputBuffer, byteArray.length);
+                        if (this.conn.requestWait() == usbRequest) {
+                            outputBuffer.clear();
+                            Log.i(TAG, "Sent.");
+                            return;
+                        } else {
+                            Log.i(TAG, "Not sent.");
+                            return;
+                        }
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
